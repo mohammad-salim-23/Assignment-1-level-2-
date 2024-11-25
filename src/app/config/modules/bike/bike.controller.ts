@@ -4,7 +4,7 @@ import { BikeServices } from "./bike.service";
 const createBike = async(req:Request,res:Response)=>{
     try{
      
-        const result = await BikeServices.createBikeIntoDB(req.body);
+        const result = await BikeServices.createBikeIntoDB(req.body.Bike);
         return res.status(200).json({
             message: "Bike created successfully",
             status: true,
@@ -36,6 +36,24 @@ const getAllBike = async(req:Request,res:Response)=>{
           });
     }
 }
+const getSingleBike = async(req:Request,res:Response)=>{
+    try{
+        const{productId} = req.params;
+        const result = await BikeServices.getSingleBikeFromDB(productId);
+        return res.status(200).json({
+            message: "Bike retrieved successfully",
+            status: true,
+            data: result,
+          });
+    }
+    catch (error) {
+        return res.status(500).json({
+          success: false,
+          message: "Internal Server Error",
+          error: error instanceof Error ? error.message : error,
+        });
+      }
+}
 export const BikeControllers={
-    createBike,getAllBike
+    createBike,getAllBike,getSingleBike 
 }
