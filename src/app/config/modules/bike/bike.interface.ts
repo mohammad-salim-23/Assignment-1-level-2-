@@ -9,6 +9,7 @@ export type TBike={
     description:string,
     quantity:number,
     isStock:boolean,
+    
 }
 
 export interface BikeModel extends Model<TBike>{

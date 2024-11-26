@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { BikeServices } from "./bike.service";
+import { Bike } from "./bike.model";
 
 const createBike = async(req:Request,res:Response)=>{
     try{
@@ -17,6 +18,7 @@ const createBike = async(req:Request,res:Response)=>{
             success: false,
             message:error.message|| "Internal Server Error",
             error: error instanceof Error ? error.message : error,
+            stack: process.env.NODE_ENV === "development" ? error.stack : undefined,
           });
     }
 }
@@ -28,11 +30,12 @@ const getAllBike = async(req:Request,res:Response)=>{
             stats: true,
             data: result,
           });
-    }catch(error){
+    }catch(error:any){
         return res.status(500).json({
             success: false,
             message: "Internal Server Error",
             error: error instanceof Error ? error.message : error,
+            stack: process.env.NODE_ENV === "development" ? error.stack : undefined,
           });
     }
 }
@@ -46,11 +49,12 @@ const getSingleBike = async(req:Request,res:Response)=>{
             data: result,
           });
     }
-    catch (error) {
+    catch (error:any) {
         return res.status(500).json({
           success: false,
           message: "Internal Server Error",
           error: error instanceof Error ? error.message : error,
+          stack: process.env.NODE_ENV === "development" ? error.stack : undefined,
         });
       }
 }
@@ -64,14 +68,32 @@ const updateBike = async(req:Request,res:Response)=>{
       success: true,
       data: result,
   });
-  }catch(error){
+  }catch(error:any){
     return res.status(500).json({
       status: false,
       message: "Internal Server Error",
       error: error instanceof Error ? error.message : error,
+      stack: process.env.NODE_ENV === "development" ? error.stack : undefined,
   });
   }
 }
+const deleteBike=async(req:Request,res:Response)=>{
+  try{
+        const {productId} = req.params;const result = await BikeServices.deleteBikeFromDB(productId);
+        return res.status(200).json({
+          message: "Bike deleted successfully",
+          status: true,
+          data: result,
+        });
+  }catch(error:any){
+    return res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+      error: error instanceof Error ? error.message : error,
+      stack: process.env.NODE_ENV === "development" ? error.stack : undefined,
+    });
+  }
+}
 export const BikeControllers={
-    createBike,getAllBike,getSingleBike ,updateBike 
+    createBike,getAllBike,getSingleBike ,updateBike ,deleteBike
 }

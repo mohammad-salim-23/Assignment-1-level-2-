@@ -20,6 +20,10 @@ const updateBikeInDB = async(id:string, updatedData:Partial<TBike>)=>{
     })
     return result;
 }
+const deleteBikeFromDB=async(id:string)=>{
+    const result = await Bike.deleteOne({_id:id});
+    return result;
+  }
 export const BikeServices={
-    createBikeIntoDB,getAllBikeFromDB, getSingleBikeFromDB,updateBikeInDB
+    createBikeIntoDB,getAllBikeFromDB, getSingleBikeFromDB,updateBikeInDB,deleteBikeFromDB
 }
