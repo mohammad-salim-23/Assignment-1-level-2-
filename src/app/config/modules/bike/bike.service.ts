@@ -13,6 +13,13 @@ const getSingleBikeFromDB=async(id:string)=>{
     const result = await Bike.findById(id);
     return result;
 }
+const updateBikeInDB = async(id:string, updatedData:Partial<TBike>)=>{
+    const result = await Bike.findByIdAndUpdate(id,updatedData,{
+        new:true,
+        runValidators:true
+    })
+    return result;
+}
 export const BikeServices={
-    createBikeIntoDB,getAllBikeFromDB, getSingleBikeFromDB
+    createBikeIntoDB,getAllBikeFromDB, getSingleBikeFromDB,updateBikeInDB
 }

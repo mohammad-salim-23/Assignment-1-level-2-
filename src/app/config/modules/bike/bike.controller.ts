@@ -54,6 +54,24 @@ const getSingleBike = async(req:Request,res:Response)=>{
         });
       }
 }
+const updateBike = async(req:Request,res:Response)=>{
+  try{
+    const {productId} = req.params;
+    const updatedData = req.body.Bike;
+    const result = await BikeServices.updateBikeInDB(productId,updatedData);
+    return res.status(200).json({
+      message: "Bike updated successfully",
+      success: true,
+      data: result,
+  });
+  }catch(error){
+    return res.status(500).json({
+      status: false,
+      message: "Internal Server Error",
+      error: error instanceof Error ? error.message : error,
+  });
+  }
+}
 export const BikeControllers={
-    createBike,getAllBike,getSingleBike 
+    createBike,getAllBike,getSingleBike ,updateBike 
 }
