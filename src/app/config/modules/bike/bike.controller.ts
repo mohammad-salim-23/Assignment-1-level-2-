@@ -1,6 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from "express";
 import { BikeServices } from "./bike.service";
-import { Bike } from "./bike.model";
 import bikeValidationSchema from "./bike.validation";
 
 const createBike = async(req:Request,res:Response)=>{
@@ -15,7 +15,7 @@ const createBike = async(req:Request,res:Response)=>{
           
             data: result,
           });
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     }catch(error:any){
         return res.status(500).json({
             success: false,
