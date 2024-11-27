@@ -5,7 +5,10 @@ const createOrderIntoDB = async(orderData:TOrder)=>{
     const result = await Order.create(orderData);
     return result;
 }
-
+const getOrderFromDB = async()=>{
+    const result = await Order.find();
+    return result;
+}
 export const OrderServices={
-    createOrderIntoDB
+    createOrderIntoDB,getOrderFromDB 
 }
