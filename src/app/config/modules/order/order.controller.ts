@@ -36,16 +36,25 @@ const getAllOrders=async(req:Request,res:Response)=>{
   try{
  const result = await OrderServices.getOrderFromDB();
   //calculate total revenue using aggregation
+  const totalRevenue=await OrderServices.calculateTotalRevenue();
+ return res.status(200).json({
+  status:true,
+  message: "Orders and revenue retrieved successfully",
+  data:{
+   
+    totalRevenue
+  }
+ })
  
-  }catch(error){
+  }catch(error:any){
 
     return res.status(500).json({
-      success: false,
-      message: "Internal Server Error",
+      status: false,
+      message: "Something wrong",
       error: error instanceof Error ? error.message : error,
     });
   }
 }
 export const OrderControllers = {
-  createOrder,
+  createOrder,getAllOrders
 };
