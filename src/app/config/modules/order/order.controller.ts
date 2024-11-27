@@ -35,6 +35,7 @@ const createOrder = async (req: Request, res: Response) => {
 const getAllOrders=async(req:Request,res:Response)=>{
   try{
  const result = await OrderServices.getOrderFromDB();
+  //calculate total revenue using aggregation
  
   }catch(error){
 
