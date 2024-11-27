@@ -34,18 +34,17 @@ const createOrder = async (req: Request, res: Response) => {
 };
 const getAllOrders=async(req:Request,res:Response)=>{
   try{
- const result = await OrderServices.getOrderFromDB();
+//  const result = await OrderServices.getOrderFromDB();
   //calculate total revenue using aggregation
   const totalRevenue=await OrderServices.calculateTotalRevenue();
  return res.status(200).json({
+  "message": "Revenue calculated successfully",
   status:true,
-  message: "Orders and revenue retrieved successfully",
   data:{
    
     totalRevenue
   }
  })
- 
   }catch(error:any){
 
     return res.status(500).json({
